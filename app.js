@@ -1,6 +1,8 @@
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
+// const swaggerJsdoc = require('swagger-jsdoc')
+// const swaggerUi = require('swagger-ui-express')
 
 const app = express()
 
@@ -10,7 +12,7 @@ const reservationRoutes = require('./api/routes/reservation')
 const userRoutes = require('./api/routes/user')
 const boardRoutes = require('./api/routes/board')
 const articleRoutes = require('./api/routes/article')
-
+const mailRoutes = require('./api/routes/mail')
 
 // connect the database
 mongoose.connect(
@@ -18,8 +20,40 @@ mongoose.connect(
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   }
 )
+
+// config for generating doc
+// const options = {
+//   definition: {
+//     openapi: '0.0.1',
+//     info: {
+//       title: 'LogRocket Express API with Swagger',
+//       version: '0.1.0',
+//       description:
+//         'This is a simple CRUD API application made with Express and documented with Swagger',
+//       license: {
+//         name: 'MIT',
+//         url: 'https://spdx.org/licenses/MIT.html',
+//       },
+//       contact: {
+//         name: 'zzy',
+//         url: 'http://izzyland.com',
+//         email: 'zhouhoushu@126.com',
+//       },
+//     },
+//     servers: [
+//       {
+//         url: 'http://localhost:3001/',
+//       },
+//     ],
+//   },
+//   apis: ['./routes/books.js'],
+// }
+
+// const specs = swaggerJsdoc(options)
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs))
 
 // for request logs
 app.use(morgan('dev'))
@@ -46,7 +80,7 @@ app.use('/user', userRoutes)
 app.use('/reservation', reservationRoutes)
 app.use('/board', boardRoutes)
 app.use('/article', articleRoutes)
-
+app.use('/mail', mailRoutes)
 
 // capture requests that skip through routes above (error handling)
 app.use((req, res, next) => {
