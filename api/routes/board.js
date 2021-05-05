@@ -17,22 +17,20 @@ router.get('/', (req, res, next) => {
 })
 
 /**
- * post a reservation
+ * post a msg to the board
  */
 router.post('/', checkAuth, (req, res, next) => {
   const userData = req.userData
-  const reservation = new Reservation({
+  const boardMsg = new Board({
     _id: new mongoose.Types.ObjectId(),
-    studentName: userData.name,
+    name: userData.name,
     number: userData.number,
-    teacherName: req.body.teacherName,
-    time: req.body.time,
     message: req.body.message,
   })
-  reservation
+  boardMsg
     .save()
     .then((result) =>
-      res.status(200).json({ msg: 'Successfully reserved', result })
+      res.status(200).json({ msg: 'Successfully posted msg on board', result })
     )
     .catch((err) => res.status(500).json({ err }))
 })
@@ -47,7 +45,7 @@ router.delete('/:reservationId', checkAuth, (req, res, next) => {
       res.status(400).json({ msg: 'Successfully deleted reservation.' })
     })
     .catch((err) => {
-      console.log("delete reservation error:", err)
+      console.log('delete reservation error:', err)
       res.status(500).json({ msg: 'error' })
     })
 })

@@ -9,6 +9,8 @@ const ordersRoutes = require('./api/routes/order')
 const reservationRoutes = require('./api/routes/reservation')
 const userRoutes = require('./api/routes/user')
 const boardRoutes = require('./api/routes/board')
+const articleRoutes = require('./api/routes/article')
+
 
 // connect the database
 mongoose.connect(
@@ -43,6 +45,8 @@ app.use('/order', ordersRoutes)
 app.use('/user', userRoutes)
 app.use('/reservation', reservationRoutes)
 app.use('/board', boardRoutes)
+app.use('/article', articleRoutes)
+
 
 // capture requests that skip through routes above (error handling)
 app.use((req, res, next) => {
