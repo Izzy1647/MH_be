@@ -79,6 +79,9 @@ router.post('/login', (req, res, next) => {
           return res.status(200).json({
             msg: 'Success',
             token,
+            number: user[0].number,
+            userId: user[0]._id,
+            name: user[0].name
           })
         }
         return res.status(401).json({ msg: 'Password Incorrect' })
