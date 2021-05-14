@@ -36,16 +36,16 @@ router.post('/', checkAuth, (req, res, next) => {
 })
 
 /**
- * delete a reservaton by reservationId
+ * delete a msg by msgId
  */
-router.delete('/:reservationId', checkAuth, (req, res, next) => {
-  Reservation.remove({ _id: req.params.reservationId })
+ router.delete('/:msgId', (req, res, next) => {
+  Board.remove({ _id: req.params.msgId })
     .exec()
     .then((result) => {
-      res.status(400).json({ msg: 'Successfully deleted reservation.' })
+      res.status(400).json({ msg: 'Successfully deleted msg.' })
     })
     .catch((err) => {
-      console.log('delete reservation error:', err)
+      console.log('delete msg error:', err)
       res.status(500).json({ msg: 'error' })
     })
 })
