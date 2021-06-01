@@ -24,7 +24,7 @@ router.post('/', checkAuth, (req, res, next) => {
   const mail = new Mail({
     _id: new mongoose.Types.ObjectId(),
     from: userData.userId,
-    message: req.body.message,
+    message: `${req.body.message}; 学生姓名：${userData.name}`,
   })
   mail
     .save()
